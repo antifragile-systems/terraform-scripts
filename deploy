@@ -33,11 +33,11 @@ TF_PLAN_OPTS=${TF_PLAN_OPTS:-"-target=${TF_TARGET}"}
 
 [ -z ${ANTIFRAGILE_STATE_AWS_REGION-} ] || [ -z ${ANTIFRAGILE_STATE_AWS_S3_BUCKET-} ] || [ -z ${ANTIFRAGILE_STATE_AWS_DYNAMODB_TABLE-} ] || \
 terraform init -upgrade \
--backend-config="region=${ANTIFRAGILE_STATE_AWS_REGION}" \
--backend-config="bucket=${ANTIFRAGILE_STATE_AWS_S3_BUCKET}" \
--backend-config="key=${NAME}.tfstate" \
+-backend-config="region=$ANTIFRAGILE_STATE_AWS_REGION" \
+-backend-config="bucket=$ANTIFRAGILE_STATE_AWS_S3_BUCKET" \
+-backend-config="key=$NAME.tfstate" \
 -backend-config="encrypt=true" \
--backend-config="dynamodb_table=${ANTIFRAGILE_STATE_AWS_DYNAMODB_TABLE}" || error_and_exit "$LINENO: terraform initialization failed."
+-backend-config="dynamodb_table=$ANTIFRAGILE_STATE_AWS_DYNAMODB_TABLE" || error_and_exit "$LINENO: terraform initialization failed."
 
 terraform get -update=true || error_and_exit "$LINENO: terraform get failed."
 
